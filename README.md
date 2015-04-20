@@ -2,9 +2,11 @@
 
 This repository will be used to host the auto backup powershell script and to track the latest version.
 
-##Getting Started:
+##Table Of Contents
 
 [TOC]
+
+##Getting Started:
 
 ###Install 7z
 
@@ -112,19 +114,19 @@ Ensure the following 4 points:
 
 1. Run the task using the Windows account `.\svcSunBaK` created in [earlier](#create-a-windows-account-as-a-backup-operator-for-the-auto-backup-script). Configure the task to **run wether user is logged on or not**
 
-    ![Creating scheduled task - General](raw/master/docs/img/scheduleScipt.png "Creating scheduled task - General")
+    ![Creating scheduled task - General](raw/master/docs/img/scheduleScript.png "Creating scheduled task - General")
 
 2. Schedule the task to run daily at a time sun operators would not be logged in making sure operation is not affected by the strain of the File Backup function.
 
-    ![Creating scheduled task - Triggers](raw/master/docs/img/scheduleScipt02.png "Creating scheduled task - Triggers")
+    ![Creating scheduled task - Triggers](raw/master/docs/img/scheduleScript02.png "Creating scheduled task - Triggers")
 
 3. Create the action to run the PowerShell script under the Actions tab: 
 
-    ![Creating scheduled task - Actions](raw/master/docs/img/scheduleScipt03.png "Creating scheduled task - Actions")
+    ![Creating scheduled task - Actions](raw/master/docs/img/scheduleScript03.png "Creating scheduled task - Actions")
 
 4. \[Optional\] create more actions, although scheduling this task to send an email daily will result in these emails being ignored and nobody will notice the task is not running anymore and that would defeat the purpose of the email...
 
-    ![Creating scheduled task - Actions2](raw/master/docs/img/scheduleScipt04.png "Creating scheduled task - Actions2")
+    ![Creating scheduled task - Actions2](raw/master/docs/img/scheduleScript04.png "Creating scheduled task - Actions2")
 
 Finally, test the task by triggering the task manually:
 
@@ -132,7 +134,7 @@ Finally, test the task by triggering the task manually:
 
 Review the History to ensure the Task ran successfully
 
-![Review result of scheduled task test](raw/master/docs/img/testScheduledScript.png "Review result of scheduled task test")
+![Review result of scheduled task test](raw/master/docs/img/testScheduledScript02.png "Review result of scheduled task test")
 
 ##Script Feature Overview:
 
@@ -147,13 +149,14 @@ This PowerShell script has the following features:
 
 ##ChangeLog
 
-- May 2015:
+Date         |Changes                                                                    |
+-------------|---------------------------------------------------------------------------|
+May 2015     | - added script to source control                                          |
+             | - converted documentation from word to markdown                           |
+             | - added ability to kill sun32.exe based on time-out ensuring email is sent|
+November 2014| Fixed bug causing script not to remove older backups correctly            |
 
-    - added script to source control
-    - converted documentation from word to markdown
-    - added ability to kill sun32.exe based on time-out ensuring email is sent
 
-- November 2014: Fixed bug causing script not to remove older backups correctly
 - August 2014: This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files. Updated by Vincent De Smet
 - August 2013: This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
 
