@@ -25,7 +25,8 @@
 
     To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSigned` as the new value:
 
-    ```powershell
+    ```
+    #!powershell
     Set-ExecutionPolicy RemoteSigned
     ```
 
@@ -63,7 +64,7 @@
 
     ![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
-8. Copy the latest release of the `[SunBackup.ps1]`(raw/master/SunBackup.ps1 "SunBackup.ps1") script to the SunSystems server
+8. Copy the latest release of the `[SunBackup.ps1]`(raw/master/SunBackup.ps1) script to the SunSystems server
 
 9. Edit the `SunBackup.ps1` script:
 
@@ -83,4 +84,4 @@
 
     ![testing SunBackup.ps1](raw/master/docs/img/testScript.png "testing SunBackup.ps1")
 
-    
+
