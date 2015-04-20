@@ -112,7 +112,7 @@ A Scheduled task should be created to run the `SunBackup.ps1` script daily outsi
 
 Ensure the following 4 points:
 
-1. Run the task using the Windows account `.\svcSunBaK` created in [earlier](#create-a-windows-account-as-a-backup-operator-for-the-auto-backup-script). Configure the task to **run wether user is logged on or not**
+1. Run the task using the Windows account `.\svcSunBaK` created [earlier](#markdown-header-create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
 
     ![Creating scheduled task - General](raw/master/docs/img/scheduleScript.png "Creating scheduled task - General")
 

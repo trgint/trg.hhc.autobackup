@@ -64,11 +64,11 @@ Write-Host -ForegroundColor Green "Starting SunSystems file backup macro..."
 #run sun32 with backup macro & pass through the Process Id
 $p = Start-Process SUN32.EXE -WorkingDirectory $sunPath -ArgumentList @('STANDARD.MDF,,FB') -PassThru
 #wait for the process to complete, specify a timeout to ensure rest of the script executes even if SUN32.EXE hangs
-Wait-Process -Id $p.ID -Timeout (New-TimeSpan -Hours 2).TotalSeconds
+Wait-Process -Id $p.Id -Timeout (New-TimeSpan -Hours 2).TotalSeconds
 if(!$p.HasExited)
 {
 	#forcefully kill SUN32.exe
-    taskkill /T /F /PID $p.ID
+    taskkill /T /F /PID $p.Id
 }
 
 #ensure backup ran by testing age of backup files
