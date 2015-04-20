@@ -1,4 +1,4 @@
-#Hilton Automated SunSystems backup
+#Hilton Automated SunSystems backup script
 
 This repository will be used to host the auto backup powershell script and to track the latest version.
 
@@ -8,9 +8,13 @@ This repository will be used to host the auto backup powershell script and to tr
 
 ###Install 7z
 
+Ensure 7zip is installed on the server, without 7z the script will fail.
+
 ![7z setup screen](raw/master/docs/img/7zinstall.png "7z setup screen")
 
-###Add PowerShell-ISE to server (this is not mandatory, but useful when you want to review or edit the script)
+###Add PowerShell-ISE to server (Optional)
+
+this is not mandatory, but is very useful when you are required to review or edit the script.
 
 Through Windows Server Feature Manager
 
@@ -35,7 +39,9 @@ To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSig
 Set-ExecutionPolicy RemoteSigned
 ```
 
-###Create a Windows account as a backup operator for the Auto backup script. Only provide the minimum permissions required for the script:
+###Create a Windows account as a backup operator for the Auto backup script. 
+
+Only provide the minimum permissions required for the script:
 
 ![adding windows account through server manager](raw/master/docs/img/createsvcSunBak.png "adding windows account through server manager")
 
@@ -43,9 +49,11 @@ Set-ExecutionPolicy RemoteSigned
 2. This account should be able to run scripts on schedule (should be a member of Backup Operators local group)
 3. This account password should **not expire** and **be strong**
 
-###Create a SunSystems account with windows authentication enabled and ISM permissions:
+###Create a SunSystems account for backup operator
 
-1. General
+Enable windows authentication and give ISM permissions to the backup operator account:
+
+1. General, added to ISM group
 
     ![adding sunsystems account through user manager - general](raw/master/docs/img/createBAK01.png "adding sunsystems account through user manager - general")
 
@@ -57,9 +65,10 @@ Set-ExecutionPolicy RemoteSigned
 
     ![adding sunsystems account through user manager - win auth](raw/master/docs/img/createBAK03.png "adding sunsystems account through user manager - win auth")
 
-###Record a SunSystems macro called "FB" for the File Backup of all databases requiring a backup
+###Record a SunSystems macro called `FB`
+Ensure the macro covers all the databases requiring daily backups. This macro will be stored in the `STANDARD.MDF` file in SunSystems root folder.
 
-**Note**: `SunBackup.ps1` expects the macro name to be `FB` in the `STANDARD.MDF`.
+**Note**: `SunBackup.ps1` expects the macro name to be `FB` and it should be located in the `STANDARD.MDF` file.
 
 ![expected macro name in MDF](raw/master/docs/img/expectedMDF.png "expected macro name in MDF")
 
@@ -73,11 +82,13 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 ###Copy the latest release of the [SunBackup.ps1](raw/master/SunBackup.ps1) script to the SunSystems server
 
+You can get the latest version of the script via https://bitbucket.org/trginternational
+
 ###Edit the `SunBackup.ps1` script:
 
 ![editing SunBackup.ps1 powershell script](raw/master/docs/img/updateScript.png "editing SunBackup.ps1 powershell script")
 
-Ensure the following 3 points:
+Ensure the following 2 points:
 
 1. The script should point to the correct FileSystems paths, **communicate these paths to ISM** to ensure tape backups or network mirrored folders exist
 
@@ -87,8 +98,93 @@ Ensure the following 3 points:
 
     **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property of left the company), **please verify with ISM if such alias exists**
 
-###Test the `SunBackup.ps1` script by running it with PowerShell. For example using the standard windows command shell:
+###Test the `SunBackup.ps1` script 
+
+Test the script by running it with PowerShell. For example using the standard windows command shell:
 
 ![testing SunBackup.ps1](raw/master/docs/img/testScript.png "testing SunBackup.ps1")
+
+###Schedule the `SunBackup.ps1` script
+
+A Scheduled task should be created to run the `SunBackup.ps1` script daily outside of working hours.
+
+Ensure the following 4 points:
+
+1. Run the task using the Windows account `.\svcSunBaK` created in [earlier](#create-a-windows-account-as-a-backup-operator-for-the-auto-backup-script). Configure the task to **run wether user is logged on or not**
+
+    ![Creating scheduled task - General](raw/master/docs/img/scheduleScipt.png "Creating scheduled task - General")
+
+2. Schedule the task to run daily at a time sun operators would not be logged in making sure operation is not affected by the strain of the File Backup function.
+
+    ![Creating scheduled task - Triggers](raw/master/docs/img/scheduleScipt02.png "Creating scheduled task - Triggers")
+
+3. Create the action to run the PowerShell script under the Actions tab: 
+
+    ![Creating scheduled task - Actions](raw/master/docs/img/scheduleScipt03.png "Creating scheduled task - Actions")
+
+4. \[Optional\] create more actions, although scheduling this task to send an email daily will result in these emails being ignored and nobody will notice the task is not running anymore and that would defeat the purpose of the email...
+
+    ![Creating scheduled task - Actions2](raw/master/docs/img/scheduleScipt04.png "Creating scheduled task - Actions2")
+
+Finally, test the task by triggering the task manually:
+
+![Testing scheduled task manually](raw/master/docs/img/testScheduledScript.png "Testing scheduled task manually")
+
+Review the History to ensure the Task ran successfully
+
+![Review result of scheduled task test](raw/master/docs/img/testScheduledScript.png "Review result of scheduled task test")
+
+##Script Feature Overview:
+
+This PowerShell script has the following features:
+
+- Only requires `PowerShell`, `7zip` and a Sun `FB` macro in the **Standard** Macro Definition file. This script does not rely on any other programs or batch files and stands by itself. 
+`PowerShell` comes by default on recent versions of Microsoft Operating Systems (Windows 7+ & Windows Server 2008+)
+- Ability to **detect the age of SunSystems backup files**, ensuring the files being archived are up to date.
+- Ability to **send a high priority email with detailed instructions** in case the SunSystems backup files are outdated. (**and only IF the files are outdated**, saving the e-mail inbox of everybody involved)
+- Ability to effectively name the archives being created with a full ISO date not relying on registry keys to parse file system dates (as the old MSDOS batch had to do)
+- Ability to prevent a full disk by removing any backups older than 4 weeks
+
+##ChangeLog
+
+- May 2015:
+
+    - added script to source control
+    - converted documentation from word to markdown
+    - added ability to kill sun32.exe based on time-out ensuring email is sent
+
+- November 2014: Fixed bug causing script not to remove older backups correctly
+- August 2014: This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files. Updated by Vincent De Smet
+- August 2013: This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
+
+##PowerShell basics
+
+This PowerShell script relies on the following PowerShell basics:
+
+- The array operator [`@( .. )`](http://technet.microsoft.com/en-us/library/hh847882.aspx) to create arrays
+- [`Join-Path`](http://technet.microsoft.com/en-us/library/hh849799.aspx) cmdlet is used to compose system independent paths
+- The [`Get-Date`](http://technet.microsoft.com/en-us/library/hh849887.aspx) cmdlet to get a DateTime object
+- The [`DateTime`](http://msdn.microsoft.com/en-us/library/system.datetime_members.aspx) object member functions such as .AddDays()
+- The Here-String [`@” .. “@`](http://technet.microsoft.com/en-us/library/ee692792.aspx) to conveniently compose the e-mail body with placeholders
+- The [`format (-f)`](http://social.technet.microsoft.com/wiki/contents/articles/7855.using-the-f-format-operator-in-powershell.aspx) operator to set the “from” field of the email to the server name and fill out the placeholders in the e-mail body.
+- The [`New-Item`](http://technet.microsoft.com/en-us/library/ee176914.aspx) cmdlet to ensure the target backup path exists (with the -Force argument switch)
+- The [`Measure-Object`](http://technet.microsoft.com/en-us/library/hh849965.aspx) cmdlet and [`Measure-Latest`](http://dmitrysotnikov.wordpress.com/2008/07/16/measure-latest-finding-the-latest-date-time/) function to get the latest LastWriteTime of the backup files
+- The [`Start-Process`](http://technet.microsoft.com/en-us/library/hh849848.aspx) cmdlet to start a process with a certain working directory and argumentlist
+- The [`Get-ChildItem`](http://technet.microsoft.com/en-us/library/ee176841.aspx) cmdlet to recursively fetch files and subdirectories filtering on extension
+- The [`Call (&)`](http://technet.microsoft.com/en-us/library/hh847732.aspx) operator to call 7zip with all required arguments
+- The [`Send-Mailmessage`](http://technet.microsoft.com/en-us/library/hh849925.aspx) cmdlet to intuitively send an email from the script
+
+Additional Tips to better understand the inner workings of this script:
+
+-	Read about [Scripting in PowerShell](http://technet.microsoft.com/en-us/library/bb978526.aspx)
+-	Use the [`Get-Member`](http://technet.microsoft.com/en-us/library/ee176854.aspx) & [`Get-Help`](http://technet.microsoft.com/en-us/library/ee176848.aspx) cmdlets to get information on the member functions available in PowerShell objects
+-	Read about the [Automatic variables](http://technet.microsoft.com/en-us/library/dd347675.aspx) maintained by the PowerShell runtime
+-	Read about the [fundamental concept of drives](http://blogs.technet.com/b/heyscriptingguy/archive/2011/09/07/use-powershell-to-work-easily-with-drives-and-paths.aspx) in Powershell 
+-	Read about the [environment provider](http://technet.microsoft.com/en-us/library/hh847860.aspx) 
+-	This PowerShell script does not use aliases for the cmdlets to ensure maximum readability except for:
+
+    - `?` as an alias for the [`Where-Object`](http://technet.microsoft.com/en-us/library/hh849715.aspx) cmdlet
+    - `%` as an alias for the `ForEach-object` cmdlet
+
 
 
