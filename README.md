@@ -153,10 +153,10 @@ Date         |By              | Changes
 -------------|----------------|---------------------------------------------------------------
 May 2015     |Vincent De Smet | added script to source control
              |                | converted documentation from word to markdown
-             |                | added ability to kill sun32.exe based on time-out ensuring email is sent
+             |                | added ability to kill sun32.exe based on time-out - ensuring email is sent
 November 2014|Vincent De Smet | Fixed bug causing script not to remove older backups correctly
 August 2014  |Vincent De Smet | This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files
-- August 2013|Vincent De Smet | This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
+August 2013  |Vincent De Smet | This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
 
 ##PowerShell basics
 
