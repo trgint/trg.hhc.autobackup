@@ -25,10 +25,10 @@
 
     To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSigned` as the new value:
 
-    ```
-    #!powershell
-    Set-ExecutionPolicy RemoteSigned
-    ```
+```
+#!powershell
+Set-ExecutionPolicy RemoteSigned
+```
 
 4. Create a Windows account as a backup operator for the Auto backup script. Only provide the minimum permissions required for the script:
 
@@ -64,7 +64,7 @@
 
     ![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
-8. Copy the latest release of the `[SunBackup.ps1]`(raw/master/SunBackup.ps1) script to the SunSystems server
+8. Copy the latest release of the [SunBackup.ps1](raw/master/SunBackup.ps1) script to the SunSystems server
 
 9. Edit the `SunBackup.ps1` script:
 
