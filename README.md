@@ -1,3 +1,6 @@
+#Hilton Automated SunSystems backup Powershell script
+
+##Setup instructions:
 1. Install 7z
 ![7z setup screen](raw/master/docs/img/7zinstall.png)
 
