@@ -1,6 +1,10 @@
-#Hilton Automated SunSystems backup Powershell script
+#Hilton Automated SunSystems backup
+
+This repository will be used to host the auto backup powershell script and to track the latest version.
 
 ##Getting Started:
+
+[TOC]
 
 ###Install 7z
 
