@@ -149,12 +149,10 @@ This PowerShell script has the following features:
 
 ##ChangeLog
 
-Date         |Changes                                                                    |
--------------|---------------------------------------------------------------------------|
-May 2015     | - added script to source control                                          |
-             | - converted documentation from word to markdown                           |
-             | - added ability to kill sun32.exe based on time-out ensuring email is sent|
-November 2014| Fixed bug causing script not to remove older backups correctly            |
+Date         |Changes                                                                    
+-------------|---------------------------------------------------------------------------
+May 2015     | <ul><li>added script to source control</li><li>converted documentation from word to markdown</li><li>added ability to kill sun32.exe based on time-out ensuring email is sent</li>
+November 2014| Fixed bug causing script not to remove older backups correctly            
 
 
 - August 2014: This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files. Updated by Vincent De Smet
