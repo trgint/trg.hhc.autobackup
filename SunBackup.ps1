@@ -1,5 +1,5 @@
 ﻿#SunSystems 4.3.3 Auto-backup script written by 'Vincent De Smet <vincent.desmet@trginternational.com>'
-#last update 31/08/2014
+#last update 21/04/2015
 #this script requires 7z to be installed in the Program Files directory
 
 #script parameters
@@ -26,6 +26,7 @@ Consider reviewing the Backup Operator password in SunSystems User Manager and i
 Contact TRGHelp@trginternational.com if you are not sure what to do.
 
 This is an automated e-mail from the SunBackup.ps1 script, please do not reply to this email.
+For more information about this script refer to https://bitbucket.org/trginternational/trg.hhc.autobackup/
 "@
 
 $PSEmailServer = 'smtpmail.hilton.com' #this sets the default smtp server, port defaults to 25
@@ -125,9 +126,9 @@ if($sunBackupDate -gt $minSunBackupDate) {
     $AirportInformation = Get-AirportInformation -AirportCode $env:COMPUTERNAME.Substring(0,3)
     if ($AirportInformation -ne $null)
     {
-        $emailBody + ("`n`nNote: {0} indicates this property is located near following airport: {1} ({2})" -f $env:COMPUTERNAME, $AirportInformation.cityOrAirportName, $AirportInformation.Country)
+        $emailBody = $emailBody + ("`n`nNote: {0} indicates this property is located near following airport: {1} ({2})" -f $env:COMPUTERNAME, $AirportInformation.cityOrAirportName, $AirportInformation.Country)
     }else {
-        $emailBody + ("`n`nNote: airport information could not be retrieved for {0}" -f $env:COMPUTERNAME)
+        $emailBody = $emailBody + ("`n`nNote: airport information could not be retrieved for {0}" -f $env:COMPUTERNAME)
     }
 
     #add sunBackupDate to $emailBody & send email
