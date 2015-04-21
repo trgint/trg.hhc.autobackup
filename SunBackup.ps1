@@ -3,10 +3,11 @@
 #this script requires 7z to be installed in the Program Files directory
 
 #script parameters
-$sunPath       = 'D:\Infor\SunSystems v4.3.3'     #location of SUN32.EXE folder (will be used as working directory)
-$backupPath    = 'D:\BACKUP\SUN'                  #target folder for off-site backups (full path will be created if it does not exist)
+[xml]$config = Get-Content ".\config.xml"
+$sunPath       = $config.settings.sunDir     #location of SUN32.EXE folder (will be used as working directory)
+$backupPath    = $config.settings.backupDir  #target folder for off-site backups (full path will be created if it does not exist)
 #array of e-mail contacts to be notified when SunSystems backups are outdated:
-$emailTo       = @('BUSBT_IT <BUSBT_IT@Hilton.com>', 'TRGHelp <trghelp@trginternational.com>', 'Vincent De Smet <vincent.desmet@trginternational.com>') 
+$emailTo       = $config.settings.contacts.contact | %{ $_.GetAttribute("email")} 
 
 #Script variables
 $sunBackupPath     = Join-Path -Path $sunPath -ChildPath '_back' #backup folder under sunPath

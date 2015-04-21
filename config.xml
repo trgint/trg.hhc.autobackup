@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+	<sunDir>D:\Program Files\Infor\SunSystems v4.3.3</sunDir>
+	<backupDir>D:\Backup\SUN</backupDir>
+	<contacts>
+		<!--<contact email="BUSBT_IT &lt;BUSBT_IT@hilton.com&gt;"/>-->
+		<!--<contact email="TRGHelp &lt;TRGHelp@trginternational.com&gt;"/>-->
+		<contact email="Vincent De Smet &lt;vincent.desmet@trginternational.com&gt;"/>
+		<contact email="Vincent De Smet &lt;vincent.drl@gmail.com&gt;"/>
+	</contacts>
+</settings>
