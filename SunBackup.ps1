@@ -60,6 +60,28 @@ function Measure-Latest([String] $Property = $null, [Switch] $Earliest) {
     END { $value }
 }
 
+#function used to lookup airport information
+function Get-AirportInformation
+{
+    param(
+        [Parameter(Mandatory=$true, ValueFromPipeline=$true)]
+        [string]
+        $AirportCode
+    )
+    try
+    {
+        $wsdl = 'http://www.webservicex.net/airport.asmx?WSDL'
+        $proxy = New-WebServiceProxy -Uri $wsdl -Namespace proxy -Class ip
+        [xml]$rtn = $proxy.getAirportInformationByAirportCode($AirportCode)
+
+        $rtn.NewDataSet.Table[0] | Select-Object -Property cityOrAirportName , Country
+    }catch
+    {
+        Write-Warning "Error Occured: $_"
+        Write-Host "Aiport Code not found"
+    }
+}
+
 Write-Host -ForegroundColor Green "Starting SunSystems file backup macro..."
 #run sun32 with backup macro & pass through the Process Id
 $p = Start-Process SUN32.EXE -WorkingDirectory $sunPath -ArgumentList @('STANDARD.MDF,,FB') -PassThru
@@ -98,6 +120,17 @@ if($sunBackupDate -gt $minSunBackupDate) {
 }else {
     #sun backup files are older than the minimum date, send an e-mail alert!
     Write-Host -ForegroundColor Red "SunSystems Backup (*.bak) files are older than $minSunBackupDate, sending email... "
+
+    #if first 3 characters of Server Name matches a valid airport code, tag this airport information at end of emailBody
+    $AirportInformation = Get-AirportInformation -AirportCode $env:COMPUTERNAME.Substring(0,3)
+    if ($AirportInformation -ne $null)
+    {
+        $emailBody + ("`n`nNote: {0} indicates this property is located near following airport: {1} ({2})" -f $env:COMPUTERNAME, $AirportInformation.cityOrAirportName, $AirportInformation.Country)
+    }else {
+        $emailBody + ("`n`nNote: airport information could not be retrieved for {0}" -f $env:COMPUTERNAME)
+    }
+
+    #add sunBackupDate to $emailBody & send email
     Send-Mailmessage -priority High `
         -from $emailFrom `
         -to $emailTo `
