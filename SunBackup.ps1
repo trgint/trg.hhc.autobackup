@@ -78,7 +78,7 @@ function Get-AirportInformation
     }catch
     {
         Write-Warning "Error Occured: $_"
-        Write-Host "Aiport Code not found"
+        Write-Host "Airport Code not found"
     }
 }
 

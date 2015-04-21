@@ -179,15 +179,17 @@ This PowerShell script relies on the following PowerShell basics:
 
 Additional Tips to better understand the inner workings of this script:
 
--	Read about [Scripting in PowerShell](http://technet.microsoft.com/en-us/library/bb978526.aspx)
--	Use the [`Get-Member`](http://technet.microsoft.com/en-us/library/ee176854.aspx) & [`Get-Help`](http://technet.microsoft.com/en-us/library/ee176848.aspx) cmdlets to get information on the member functions available in PowerShell objects
--	Read about the [Automatic variables](http://technet.microsoft.com/en-us/library/dd347675.aspx) maintained by the PowerShell runtime
--	Read about the [fundamental concept of drives](http://blogs.technet.com/b/heyscriptingguy/archive/2011/09/07/use-powershell-to-work-easily-with-drives-and-paths.aspx) in Powershell 
--	Read about the [environment provider](http://technet.microsoft.com/en-us/library/hh847860.aspx) 
--	This PowerShell script does not use aliases for the cmdlets to ensure maximum readability except for:
+- Read about [Scripting in PowerShell](http://technet.microsoft.com/en-us/library/bb978526.aspx)
+- Use the [`Get-Member`](http://technet.microsoft.com/en-us/library/ee176854.aspx) & [`Get-Help`](http://technet.microsoft.com/en-us/library/ee176848.aspx) cmdlets to get information on the member functions available in PowerShell objects
+- Read about the [Automatic variables](http://technet.microsoft.com/en-us/library/dd347675.aspx) maintained by the PowerShell runtime
+- Read about the [fundamental concept of drives](http://blogs.technet.com/b/heyscriptingguy/archive/2011/09/07/use-powershell-to-work-easily-with-drives-and-paths.aspx) in Powershell 
+- Read about the [environment provider](http://technet.microsoft.com/en-us/library/hh847860.aspx) 
+- This PowerShell script does not use aliases for the cmdlets to ensure maximum readability except for:
 
     - `?` as an alias for the [`Where-Object`](http://technet.microsoft.com/en-us/library/hh849715.aspx) cmdlet
     - `%` as an alias for the `ForEach-object` cmdlet
+
+- [This technet blog](http://blogs.technet.com/b/heyscriptingguy/archive/2013/07/04/use-powershell-to-translate-airport-code-to-city-name.aspx) walks you through using a webservice.
 
 
 
