@@ -74,7 +74,7 @@ Ensure the macro covers all the databases requiring daily backups. This macro wi
 
 ![expected macro name in MDF](raw/master/docs/img/expectedMDF.png "expected macro name in MDF")
 
-###Edit the Macro
+###Edit the SunSystems Macro (add username & password)
 
 Once the macro has been recorded, it is required to **edit** the macro, adding the Backup user SUN Operator ID and Password, below the macro name but before any SunSystems commands. This is required to run scripts from command line even with Windows Authentication enabled on the account. 
 
