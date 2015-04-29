@@ -82,19 +82,19 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 ![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
-###Copy the latest release of the [SunBackup.ps1](raw/master/SunBackup.ps1) script to the SunSystems server
+###Get the latest release backup script files
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
-    @( "config.xml", "SunBackup.ps1" ) | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_) -OutFile $_ }
+    @("config.xml", "SunBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
     @("SunBackup.ps1","config.xml") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
-###Edit the `SunBackup.ps1` script:
+###Edit the `config.xml`
 
 ![editing SunBackup.ps1 powershell config](raw/master/docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
 
