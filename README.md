@@ -88,11 +88,11 @@ You can get the latest version of the script via https://bitbucket.org/trgintern
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
-    @("config.xml", "SunBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
+    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
-    @("SunBackup.ps1","config.xml") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
 ###Edit the `config.xml`
 
@@ -117,6 +117,19 @@ Test the script by running it with PowerShell. For example using the standard wi
 ###Schedule the `SunBackup.ps1` script
 
 A Scheduled task should be created to run the `SunBackup.ps1` script daily outside of working hours.
+
+Either schedule the task manually, following the screenshots below, or download & run the `ScheduleBackup.ps1` script.
+
+```
+#!powershell
+.\ScheduleBackup.ps1
+```
+
+This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#markdown-header-create-a-sunsystems-account-for-backup-operator).
+
+![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated01.png "Creating scheduled task - automated")
+
+![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
 
 Ensure the following 4 points:
 

@@ -9,10 +9,14 @@ if ($PSVersionTable.PSVersion -ge (new-object 'Version' 3,0))
 } else {
     (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead($url))).ReadToEnd() | Out-File $xmlfile 
 }
-pause
 
 Write-Host -ForegroundColor Green "Please provide credentials under which the backup task should run"
 $creds = Get-Credential
 
-#refer to https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx
-schtasks /Create /XML $xmlfile /RU $creds.UserName /RP $creds.GetNetworkCredential().Password /TN "SunSystems Auto backup"  
+if ($creds -ne $null)
+{
+    #refer to https://msdn.microsoft.com/en-us/library/windows/desktop/bb736357(v=vs.85).aspx
+    schtasks /Create /XML $xmlfile /RU $creds.UserName /RP $creds.GetNetworkCredential().Password /TN "SunSystems Auto backup"
+} else {
+    Write-Host -ForegroundColor Red "No credentials supplied - aborting."
+}
