@@ -127,8 +127,6 @@ Either schedule the task manually, following the screenshots below, or download 
 
 This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#markdown-header-create-a-sunsystems-account-for-backup-operator).
 
-![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated01.png "Creating scheduled task - automated")
-
 ![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
 
 Ensure the following 4 points:
