@@ -82,7 +82,7 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 ![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
-###Get the latest release backup script files
+###Get the latest backup-script files
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
