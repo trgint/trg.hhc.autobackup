@@ -86,10 +86,13 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
-or with this powershell one liner:
+or with this one liner **powershell 3+** (Windows Server 2012):
 
-     @( "config.xml", "SunBackup.ps1" ) | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_) -OutFile $_ }
+    @( "config.xml", "SunBackup.ps1" ) | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_) -OutFile $_ }
 
+or with this one liner for **powershell 2** (Windows Server 2008):
+
+    @("SunBackup.ps1","config.xml") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
 ###Edit the `SunBackup.ps1` script:
 
