@@ -86,6 +86,10 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
+or with this line of powershell:
+
+    iwr https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/SunBackup.ps1 -OutFile SunBackup.ps1
+
 ###Edit the `SunBackup.ps1` script:
 
 ![editing SunBackup.ps1 powershell script](raw/master/docs/img/updateScript.png "editing SunBackup.ps1 powershell script")
