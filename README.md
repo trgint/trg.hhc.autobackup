@@ -86,21 +86,22 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
-or with this line of powershell:
+or with this powershell one liner:
 
-    iwr https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/SunBackup.ps1 -OutFile SunBackup.ps1
+     @( "config.xml", "SunBackup.ps1" ) | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_) -OutFile $_ }
+
 
 ###Edit the `SunBackup.ps1` script:
 
-![editing SunBackup.ps1 powershell script](raw/master/docs/img/updateScript.png "editing SunBackup.ps1 powershell script")
+![editing SunBackup.ps1 powershell config](raw/master/docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
 
 Ensure the following 2 points:
 
-1. The script should point to the correct FileSystems paths, **communicate these paths to ISM** to ensure tape backups or network mirrored folders exist
+1. The config should point to the correct FileSystems paths, **communicate these paths to ISM** to ensure tape backups or network mirrored folders exist
 
 2. Update the e-mail contacts to be notified in case SunSystems backup files are out of date.
 
-    **Note** `@(..)` in powershell is used to formally create an array for 1 or multiple addresses, but the emails could just be a comma separated list of strings (that should work too, but has not been tested)
+    **Note** `<` and `>` are invalid characters in XML and need to be written as `&lt;` and `&gt;` to ensure email contacts show up with a caption `TRGHelp <trghelp@trginternational.com>` becomes `TRGHelp &lt;TRGHelp@trginternational.com&gt;`
 
     **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property of left the company), **please verify with ISM if such alias exists**
 
