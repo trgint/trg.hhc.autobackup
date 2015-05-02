@@ -1,5 +1,5 @@
 ﻿$xmlfile = "TaskConfig.xml"
-$url = "https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$xmlfile"
+$url = "https://github.com/trgint/trg.hhc.autobackup/raw/master/$xmlfile"
 
 Write-Host -ForegroundColor Green "Downloading TaskConfig xml template"
 if ($PSVersionTable.PSVersion -ge (new-object 'Version' 3,0))

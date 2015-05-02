@@ -102,15 +102,15 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 ### Get the latest backup-script files
 
-You can get the latest version of the script via https://bitbucket.org/trginternational
+You can get the latest version of the script via https://github.com/trgint/trg.hhc.autobackup
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
-    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/$_") -OutFile $_ }
+    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://github.com/trgint/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
-    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://github.com/trgint/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
 ### Edit the `config.xml`
 
