@@ -1,6 +1,6 @@
 # SunSystems automated backups script
 
-This repository hosts the powershell script and provides change control.
+This repository hosts the powershell script, provides documentation/installation information, issue tracking and full change/version control.
 
 ## Table Of Contents
 
