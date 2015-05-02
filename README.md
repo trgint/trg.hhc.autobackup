@@ -30,7 +30,7 @@ This repository will be used to host the auto backup powershell script and to tr
 
 Ensure 7zip is installed on the server, without 7z the script will fail.
 
-![7z setup screen](raw/master/docs/img/7zinstall.png "7z setup screen")
+![7z setup screen](docs/img/7zinstall.png "7z setup screen")
 
 ### Add PowerShell-ISE to server (Optional)
 
@@ -38,19 +38,19 @@ this is not mandatory, but is very useful when you are required to review or edi
 
 Through Windows Server Feature Manager
 
-![adding ise in windows server feature setup](raw/master/docs/img/iseinstall.png "adding ise in windows server feature setup")
+![adding ISE in windows server feature setup](docs/img/iseinstall.png "adding ISE in windows server feature setup")
 
 or using PowerShell to enable ISE directly
 
-![adding ise from command line](raw/master/docs/img/iseinstall02.png "adding ise from command line")
+![adding ISE from command line](docs/img/iseinstall02.png "adding ISE from command line")
 
 ### Ensure `ExecutionPolicy` allows unsigned local scripts
 
-![setting ExecutionPolicy](raw/master/docs/img/setExecutionPolicy.png "setting ExecutionPolicy")
+![setting ExecutionPolicy](docs/img/setExecutionPolicy.png "setting ExecutionPolicy")
 
 **Note**: `RemoteSigned` will allow local scripts to be unsigned, but require remote scripts to be signed. Before changing the execution policy - ensure it was not set to `Unrestricted` by someone else. Below screenshot shows the `ExecutionPolicy` was set to `Unrestricted` in which case we should **not** modify the setting.
 
-![note ExecutionPolicy](raw/master/docs/img/setExecutionPolicyNote.png "note ExecutionPolicy")
+![note ExecutionPolicy](docs/img/setExecutionPolicyNote.png "note ExecutionPolicy")
 
 To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSigned` as the new value:
 
@@ -63,7 +63,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Only provide the minimum permissions required for the script:
 
-![adding windows account through server manager](raw/master/docs/img/createsvcSunBak.png "adding windows account through server manager")
+![adding windows account through server manager](docs/img/createsvcSunBak.png "adding windows account through server manager")
 
 1. This account should be able to run SunSystems (should be member of SUClients local group)
 2. This account should be able to run scripts on schedule (should be a member of Backup Operators local group)
@@ -75,22 +75,22 @@ Enable windows authentication and give ISM permissions to the backup operator ac
 
 1. General, added to ISM group
 
-    ![adding sunsystems account through user manager - general](raw/master/docs/img/createBAK01.png "adding sunsystems account through user manager - general")
+    ![adding sunsystems account through user manager - general](docs/img/createBAK01.png "adding sunsystems account through user manager - general")
 
 2. SunSystems 4 settings
 
-    ![adding sunsystems account through user manager - sun4](raw/master/docs/img/createBAK02.png "adding sunsystems account through user manager - sun4")
+    ![adding sunsystems account through user manager - sun4](docs/img/createBAK02.png "adding sunsystems account through user manager - sun4")
 
 3. Windows Authentication
 
-    ![adding sunsystems account through user manager - win auth](raw/master/docs/img/createBAK03.png "adding sunsystems account through user manager - win auth")
+    ![adding sunsystems account through user manager - win auth](docs/img/createBAK03.png "adding sunsystems account through user manager - win auth")
 
 ### Record a SunSystems macro called `FB`
 Ensure the macro covers all the databases requiring daily backups. This macro will be stored in the `STANDARD.MDF` file in SunSystems root folder.
 
 **Note**: `SunBackup.ps1` expects the macro name to be `FB` and it should be located in the `STANDARD.MDF` file.
 
-![expected macro name in MDF](raw/master/docs/img/expectedMDF.png "expected macro name in MDF")
+![expected macro name in MDF](docs/img/expectedMDF.png "expected macro name in MDF")
 
 ### Edit the SunSystems Macro (add username & password)
 
@@ -98,7 +98,7 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 **Note**: Due to the Hilton Policy, after 90 days the password will be expired and will need to be updated. The script will notify relevant parties when the backups are no longer working.
 
-![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
+![editing sunsystems macro definition file, adding operator ID & password](docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
 ### Get the latest backup-script files
 
@@ -106,15 +106,15 @@ You can get the latest version of the script via https://bitbucket.org/trgintern
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
-    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
+    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/$_") -OutFile $_ }
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
-    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
 ### Edit the `config.xml`
 
-![editing SunBackup.ps1 powershell config](raw/master/docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
+![editing SunBackup.ps1 powershell config](docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
 
 Ensure the following 2 points:
 
@@ -130,7 +130,7 @@ Ensure the following 2 points:
 
 Test the script by running it with PowerShell. For example using the standard windows command shell:
 
-![testing SunBackup.ps1](raw/master/docs/img/testScript.png "testing SunBackup.ps1")
+![testing SunBackup.ps1](docs/img/testScript.png "testing SunBackup.ps1")
 
 ### Schedule the `SunBackup.ps1` script
 
@@ -145,33 +145,33 @@ Either schedule the task manually, following the screenshots below, or download 
 
 This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator).
 
-![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
+![Creating scheduled task - automated](docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
 
 Ensure the following 4 points:
 
 1. Run the task using the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
 
-    ![Creating scheduled task - General](raw/master/docs/img/scheduleScript.png "Creating scheduled task - General")
+    ![Creating scheduled task - General](docs/img/scheduleScript.png "Creating scheduled task - General")
 
 2. Schedule the task to run daily at a time sun operators would not be logged in making sure operation is not affected by the strain of the File Backup function.
 
-    ![Creating scheduled task - Triggers](raw/master/docs/img/scheduleScript02.png "Creating scheduled task - Triggers")
+    ![Creating scheduled task - Triggers](docs/img/scheduleScript02.png "Creating scheduled task - Triggers")
 
 3. Create the action to run the PowerShell script under the Actions tab: 
 
-    ![Creating scheduled task - Actions](raw/master/docs/img/scheduleScript03.png "Creating scheduled task - Actions")
+    ![Creating scheduled task - Actions](docs/img/scheduleScript03.png "Creating scheduled task - Actions")
 
 4. \[Optional\] create more actions, although scheduling this task to send an email daily will result in these emails being ignored and nobody will notice the task is not running anymore and that would defeat the purpose of the email...
 
-    ![Creating scheduled task - Actions2](raw/master/docs/img/scheduleScript04.png "Creating scheduled task - Actions2")
+    ![Creating scheduled task - Actions2](docs/img/scheduleScript04.png "Creating scheduled task - Actions2")
 
 Finally, test the task by triggering the task manually:
 
-![Testing scheduled task manually](raw/master/docs/img/testScheduledScript.png "Testing scheduled task manually")
+![Testing scheduled task manually](docs/img/testScheduledScript.png "Testing scheduled task manually")
 
 Review the History to ensure the Task ran successfully
 
-![Review result of scheduled task test](raw/master/docs/img/testScheduledScript02.png "Review result of scheduled task test")
+![Review result of scheduled task test](docs/img/testScheduledScript02.png "Review result of scheduled task test")
 
 ## Script Feature Overview:
 
