@@ -4,23 +4,23 @@ This repository will be used to host the auto backup powershell script and to tr
 
 ## Table Of Contents
 
-<!-- MarkdownTOC depth=3 autolink=true -->
+<!-- MarkdownTOC depth=3 autolink=true bracket=round -->
 
-- [Getting Started:][getting-started]
-    - [Install 7z][install-7z]
-    - [Add PowerShell-ISE to server (Optional)][add-powershell-ise-to-server-optional]
-    - [Ensure `ExecutionPolicy` allows unsigned local scripts][ensure-executionpolicy-allows-unsigned-local-scripts]
-    - [Create a Windows account as a backup operator for the Auto backup script.][create-a-windows-account-as-a-backup-operator-for-the-auto-backup-script]
-    - [Create a SunSystems account for backup operator][create-a-sunsystems-account-for-backup-operator]
-    - [Record a SunSystems macro called `FB`][record-a-sunsystems-macro-called-fb]
-    - [Edit the SunSystems Macro (add username & password)][edit-the-sunsystems-macro-add-username--password]
-    - [Get the latest backup-script files][get-the-latest-backup-script-files]
-    - [Edit the `config.xml`][edit-the-configxml]
-    - [Test the `SunBackup.ps1` script][test-the-sunbackupps1-script]
-    - [Schedule the `SunBackup.ps1` script][schedule-the-sunbackupps1-script]
-- [Script Feature Overview:][script-feature-overview]
-- [ChangeLog][changelog]
-- [PowerShell basics][powershell-basics]
+- [Getting Started:](#getting-started)
+    - [Install 7z](#install-7z)
+    - [Add PowerShell-ISE to server (Optional)](#add-powershell-ise-to-server-optional)
+    - [Ensure `ExecutionPolicy` allows unsigned local scripts](#ensure-executionpolicy-allows-unsigned-local-scripts)
+    - [Create a Windows account as a backup operator for the Auto backup script.](#create-a-windows-account-as-a-backup-operator-for-the-auto-backup-script)
+    - [Create a SunSystems account for backup operator](#create-a-sunsystems-account-for-backup-operator)
+    - [Record a SunSystems macro called `FB`](#record-a-sunsystems-macro-called-fb)
+    - [Edit the SunSystems Macro (add username & password)](#edit-the-sunsystems-macro-add-username--password)
+    - [Get the latest backup-script files](#get-the-latest-backup-script-files)
+    - [Edit the `config.xml`](#edit-the-configxml)
+    - [Test the `SunBackup.ps1` script](#test-the-sunbackupps1-script)
+    - [Schedule the `SunBackup.ps1` script](#schedule-the-sunbackupps1-script)
+- [Script Feature Overview:](#script-feature-overview)
+- [ChangeLog](#changelog)
+- [PowerShell basics](#powershell-basics)
 
 <!-- /MarkdownTOC -->
 
