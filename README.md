@@ -1,6 +1,12 @@
 # SunSystems automated backups script
 
-This repository hosts the powershell script, provides documentation/installation information, issue tracking and full change/version control.
+This repository hosts the powershell script, providing:
+
+- documentation & installation information, 
+- issue tracking and 
+- full change/version control.
+
+Kindly contact trghelp@trginternational.com for any additional clarifications required.
 
 ## Table Of Contents
 
