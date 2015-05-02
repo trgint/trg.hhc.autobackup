@@ -1,38 +1,56 @@
-#Hilton Automated SunSystems backup script
+# Hilton Automated SunSystems backup script
 
 This repository will be used to host the auto backup powershell script and to track the latest version.
 
-##Table Of Contents
+## Table Of Contents
 
-[TOC]
+<!-- MarkdownTOC depth=3 -->
 
-##Getting Started:
+- Getting Started:
+    - Install 7z
+    - Add PowerShell-ISE to server (Optional)
+    - Ensure `ExecutionPolicy` allows unsigned local scripts
+    - Create a Windows account as a backup operator for the Auto backup script.
+    - Create a SunSystems account for backup operator
+    - Record a SunSystems macro called `FB`
+    - Edit the SunSystems Macro (add username & password)
+    - Get the latest backup-script files
+    - Edit the `config.xml`
+    - Test the `SunBackup.ps1` script
+    - Schedule the `SunBackup.ps1` script
+- Script Feature Overview:
+- ChangeLog
+- PowerShell basics
 
-###Install 7z
+<!-- /MarkdownTOC -->
+
+## Getting Started:
+
+### Install 7z
 
 Ensure 7zip is installed on the server, without 7z the script will fail.
 
-![7z setup screen](raw/master/docs/img/7zinstall.png "7z setup screen")
+![7z setup screen](master/docs/img/7zinstall.png "7z setup screen")
 
-###Add PowerShell-ISE to server (Optional)
+### Add PowerShell-ISE to server (Optional)
 
 this is not mandatory, but is very useful when you are required to review or edit the script.
 
 Through Windows Server Feature Manager
 
-![adding ise in windows server feature setup](raw/master/docs/img/iseinstall.png "adding ise in windows server feature setup")
+![adding ise in windows server feature setup](master/docs/img/iseinstall.png "adding ise in windows server feature setup")
 
 or using PowerShell to enable ISE directly
 
-![adding ise from command line](raw/master/docs/img/iseinstall02.png "adding ise from command line")
+![adding ise from command line](master/docs/img/iseinstall02.png "adding ise from command line")
 
-###Ensure `ExecutionPolicy` allows unsigned local scripts
+### Ensure `ExecutionPolicy` allows unsigned local scripts
 
-![setting ExecutionPolicy](raw/master/docs/img/setExecutionPolicy.png "setting ExecutionPolicy")
+![setting ExecutionPolicy](master/docs/img/setExecutionPolicy.png "setting ExecutionPolicy")
 
 **Note**: `RemoteSigned` will allow local scripts to be unsigned, but require remote scripts to be signed. Before changing the execution policy - ensure it was not set to `Unrestricted` by someone else. Below screenshot shows the `ExecutionPolicy` was set to `Unrestricted` in which case we should **not** modify the setting.
 
-![note ExecutionPolicy](raw/master/docs/img/setExecutionPolicyNote.png "note ExecutionPolicy")
+![note ExecutionPolicy](master/docs/img/setExecutionPolicyNote.png "note ExecutionPolicy")
 
 To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSigned` as the new value:
 
@@ -41,62 +59,62 @@ To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSig
 Set-ExecutionPolicy RemoteSigned
 ```
 
-###Create a Windows account as a backup operator for the Auto backup script. 
+### Create a Windows account as a backup operator for the Auto backup script. 
 
 Only provide the minimum permissions required for the script:
 
-![adding windows account through server manager](raw/master/docs/img/createsvcSunBak.png "adding windows account through server manager")
+![adding windows account through server manager](master/docs/img/createsvcSunBak.png "adding windows account through server manager")
 
 1. This account should be able to run SunSystems (should be member of SUClients local group)
 2. This account should be able to run scripts on schedule (should be a member of Backup Operators local group)
 3. This account password should **not expire** and **be strong**
 
-###Create a SunSystems account for backup operator
+### Create a SunSystems account for backup operator
 
 Enable windows authentication and give ISM permissions to the backup operator account:
 
 1. General, added to ISM group
 
-    ![adding sunsystems account through user manager - general](raw/master/docs/img/createBAK01.png "adding sunsystems account through user manager - general")
+    ![adding sunsystems account through user manager - general](master/docs/img/createBAK01.png "adding sunsystems account through user manager - general")
 
 2. SunSystems 4 settings
 
-    ![adding sunsystems account through user manager - sun4](raw/master/docs/img/createBAK02.png "adding sunsystems account through user manager - sun4")
+    ![adding sunsystems account through user manager - sun4](master/docs/img/createBAK02.png "adding sunsystems account through user manager - sun4")
 
 3. Windows Authentication
 
-    ![adding sunsystems account through user manager - win auth](raw/master/docs/img/createBAK03.png "adding sunsystems account through user manager - win auth")
+    ![adding sunsystems account through user manager - win auth](master/docs/img/createBAK03.png "adding sunsystems account through user manager - win auth")
 
-###Record a SunSystems macro called `FB`
+### Record a SunSystems macro called `FB`
 Ensure the macro covers all the databases requiring daily backups. This macro will be stored in the `STANDARD.MDF` file in SunSystems root folder.
 
 **Note**: `SunBackup.ps1` expects the macro name to be `FB` and it should be located in the `STANDARD.MDF` file.
 
-![expected macro name in MDF](raw/master/docs/img/expectedMDF.png "expected macro name in MDF")
+![expected macro name in MDF](master/docs/img/expectedMDF.png "expected macro name in MDF")
 
-###Edit the SunSystems Macro (add username & password)
+### Edit the SunSystems Macro (add username & password)
 
 Once the macro has been recorded, it is required to **edit** the macro, adding the Backup user SUN Operator ID and Password, below the macro name but before any SunSystems commands. This is required to run scripts from command line even with Windows Authentication enabled on the account. 
 
 **Note**: Due to the Hilton Policy, after 90 days the password will be expired and will need to be updated. The script will notify relevant parties when the backups are no longer working.
 
-![editing sunsystems macro definition file, adding operator ID & password](raw/master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
+![editing sunsystems macro definition file, adding operator ID & password](master/docs/img/editMDF.png "editing sunsystems macro definition file, adding operator ID & password")
 
-###Get the latest backup-script files
+### Get the latest backup-script files
 
 You can get the latest version of the script via https://bitbucket.org/trginternational
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
-    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
+    @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://bitbucket.org/trginternational/trg.hhc.autobackup/master/$_") -OutFile $_ }
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
-    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://bitbucket.org/trginternational/trg.hhc.autobackup/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
 
-###Edit the `config.xml`
+### Edit the `config.xml`
 
-![editing SunBackup.ps1 powershell config](raw/master/docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
+![editing SunBackup.ps1 powershell config](master/docs/img/updateScript-config.png "editing SunBackup.ps1 powershell config")
 
 Ensure the following 2 points:
 
@@ -108,13 +126,13 @@ Ensure the following 2 points:
 
     **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property of left the company), **please verify with ISM if such alias exists**
 
-###Test the `SunBackup.ps1` script 
+### Test the `SunBackup.ps1` script 
 
 Test the script by running it with PowerShell. For example using the standard windows command shell:
 
-![testing SunBackup.ps1](raw/master/docs/img/testScript.png "testing SunBackup.ps1")
+![testing SunBackup.ps1](master/docs/img/testScript.png "testing SunBackup.ps1")
 
-###Schedule the `SunBackup.ps1` script
+### Schedule the `SunBackup.ps1` script
 
 A Scheduled task should be created to run the `SunBackup.ps1` script daily outside of working hours.
 
@@ -125,37 +143,37 @@ Either schedule the task manually, following the screenshots below, or download 
 .\ScheduleBackup.ps1
 ```
 
-This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#markdown-header-create-a-sunsystems-account-for-backup-operator).
+This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator).
 
-![Creating scheduled task - automated](raw/master/docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
+![Creating scheduled task - automated](master/docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
 
 Ensure the following 4 points:
 
-1. Run the task using the Windows account `.\svcSunBaK` created [earlier](#markdown-header-create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
+1. Run the task using the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
 
-    ![Creating scheduled task - General](raw/master/docs/img/scheduleScript.png "Creating scheduled task - General")
+    ![Creating scheduled task - General](master/docs/img/scheduleScript.png "Creating scheduled task - General")
 
 2. Schedule the task to run daily at a time sun operators would not be logged in making sure operation is not affected by the strain of the File Backup function.
 
-    ![Creating scheduled task - Triggers](raw/master/docs/img/scheduleScript02.png "Creating scheduled task - Triggers")
+    ![Creating scheduled task - Triggers](master/docs/img/scheduleScript02.png "Creating scheduled task - Triggers")
 
 3. Create the action to run the PowerShell script under the Actions tab: 
 
-    ![Creating scheduled task - Actions](raw/master/docs/img/scheduleScript03.png "Creating scheduled task - Actions")
+    ![Creating scheduled task - Actions](master/docs/img/scheduleScript03.png "Creating scheduled task - Actions")
 
 4. \[Optional\] create more actions, although scheduling this task to send an email daily will result in these emails being ignored and nobody will notice the task is not running anymore and that would defeat the purpose of the email...
 
-    ![Creating scheduled task - Actions2](raw/master/docs/img/scheduleScript04.png "Creating scheduled task - Actions2")
+    ![Creating scheduled task - Actions2](master/docs/img/scheduleScript04.png "Creating scheduled task - Actions2")
 
 Finally, test the task by triggering the task manually:
 
-![Testing scheduled task manually](raw/master/docs/img/testScheduledScript.png "Testing scheduled task manually")
+![Testing scheduled task manually](master/docs/img/testScheduledScript.png "Testing scheduled task manually")
 
 Review the History to ensure the Task ran successfully
 
-![Review result of scheduled task test](raw/master/docs/img/testScheduledScript02.png "Review result of scheduled task test")
+![Review result of scheduled task test](master/docs/img/testScheduledScript02.png "Review result of scheduled task test")
 
-##Script Feature Overview:
+## Script Feature Overview:
 
 This PowerShell script has the following features:
 
@@ -166,7 +184,7 @@ This PowerShell script has the following features:
 - Ability to effectively name the archives being created with a full ISO date not relying on registry keys to parse file system dates (as the old MSDOS batch had to do)
 - Ability to prevent a full disk by removing any backups older than 4 weeks
 
-##ChangeLog
+## ChangeLog
 
 Date         |By              | Changes 
 -------------|----------------|---------------------------------------------------------------
@@ -178,7 +196,7 @@ November 2014|Vincent De Smet | Fixed bug causing script not to remove older bac
 August 2014  |Vincent De Smet | This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files
 August 2013  |Vincent De Smet | This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
 
-##PowerShell basics
+## PowerShell basics
 
 This PowerShell script relies on the following PowerShell basics:
 
