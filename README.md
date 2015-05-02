@@ -1,6 +1,6 @@
-# Hilton Automated SunSystems backup script
+# SunSystems automated backups script
 
-This repository will be used to host the auto backup powershell script and to track the latest version.
+This repository hosts the powershell script and provides change control.
 
 ## Table Of Contents
 
