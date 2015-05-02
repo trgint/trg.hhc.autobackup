@@ -27,7 +27,7 @@ Consider reviewing the Backup Operator password in SunSystems User Manager and i
 Contact TRGHelp@trginternational.com if you are not sure what to do.
 
 This is an automated e-mail from the SunBackup.ps1 script, please do not reply to this email.
-For more information about this script refer to https://bitbucket.org/trginternational/trg.hhc.autobackup/
+For more information about this script refer to https://github.com/trgint/trg.hhc.autobackup
 "@
 
 $PSEmailServer = 'smtpmail.hilton.com' #this sets the default smtp server, port defaults to 25
