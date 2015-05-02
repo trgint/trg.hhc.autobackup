@@ -54,8 +54,7 @@ or using PowerShell to enable ISE directly
 
 To set the `ExectionPolicy` run the `Set-ExecutionPolicy` cmdlet with `RemoteSigned` as the new value:
 
-```
-#!powershell
+```powershell
 Set-ExecutionPolicy RemoteSigned
 ```
 
@@ -106,11 +105,15 @@ You can get the latest version of the script via https://github.com/trgint/trg.h
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
+```powershell
     @("config.xml","SunBackup.ps1","ScheduleBackup.ps1") | % { iwr ("https://github.com/trgint/trg.hhc.autobackup/raw/master/$_") -OutFile $_ }
+```
 
 or with this one liner for **powershell 2** (Windows Server 2008):
 
+```powershell
     @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://github.com/trgint/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+```
 
 ### Edit the `config.xml`
 
@@ -138,8 +141,7 @@ A Scheduled task should be created to run the `SunBackup.ps1` script daily outsi
 
 Either schedule the task manually, following the screenshots below, or download & run the `ScheduleBackup.ps1` script.
 
-```
-#!powershell
+```powershell
 .\ScheduleBackup.ps1
 ```
 
