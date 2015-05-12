@@ -38,6 +38,8 @@ Ensure 7zip is installed on the server, without 7z the script will fail.
 
 ![7z setup screen](docs/img/7zinstall.png "7z setup screen")
 
+http://www.7-zip.org/download.html
+
 ### Add PowerShell-ISE to server (Optional)
 
 this is not mandatory, but is very useful when you are required to review or edit the script.
@@ -133,7 +135,7 @@ Ensure the following 2 points:
 
     **Note** `<` and `>` are invalid characters in XML and need to be written as `&lt;` and `&gt;` to ensure email contacts show up with a caption `TRGHelp <trghelp@trginternational.com>` becomes `TRGHelp &lt;TRGHelp@trginternational.com&gt;`
 
-    **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property of left the company), **please verify with ISM if such alias exists**
+    **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property or left the company), **please verify with ISM if such alias exists**
 
 ### Test the `SunBackup.ps1` script 
 
@@ -145,19 +147,19 @@ Test the script by running it with PowerShell. For example using the standard wi
 
 A Scheduled task should be created to run the `SunBackup.ps1` script daily outside of working hours.
 
-Either schedule the task manually, following the screenshots below, or download & run the `ScheduleBackup.ps1` script.
+Either schedule the task manually, following the screenshots below, or download & run the `ScheduleBackup.ps1` script to have the task created automatically with common settings.
 
 ```powershell
 .\ScheduleBackup.ps1
 ```
 
-This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator).
+This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#create-a-sunsystems-account-for-backup-operator).
 
 ![Creating scheduled task - automated](docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
 
-Ensure the following 4 points:
+If creating the task **manually**, ensure the following 4 points:
 
-1. Run the task using the Windows account `.\svcSunBaK` created [earlier](# markdown-header-create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
+1. Run the task using the Windows account `.\svcSunBaK` created [earlier](#create-a-sunsystems-account-for-backup-operator). Configure the task to **run wether user is logged on or not**
 
     ![Creating scheduled task - General](docs/img/scheduleScript.png "Creating scheduled task - General")
 
