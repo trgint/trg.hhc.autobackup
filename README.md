@@ -50,6 +50,12 @@ Through Windows Server Feature Manager
 
 or using PowerShell to enable ISE directly
 
+```powershell
+Import-Module ServerManager
+Add-WindowsFeature Powershell-ISE
+ise
+```
+
 ![adding ISE from command line](docs/img/iseinstall02.png "adding ISE from command line")
 
 ### Ensure `ExecutionPolicy` allows unsigned local scripts
