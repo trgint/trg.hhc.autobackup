@@ -141,7 +141,7 @@ Ensure the following 2 points:
 
     **Note** `<` and `>` are invalid characters in XML and need to be written as `&lt;` and `&gt;` to ensure email contacts show up with a caption `TRGHelp <trghelp@trginternational.com>` becomes `TRGHelp &lt;TRGHelp@trginternational.com&gt;`
 
-    **Note** some ISM create an `<INNCODE>_IT@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property or left the company), **please verify with ISM if such alias exists**
+    **Note** some ISM create an `<INNCODE>_IT@Hilton.com` or `<INNCODE>_ISM@Hilton.com` alias for their property to ensure future emails will always reach the correct person (in case ISM moved to another property or left the company), **please verify with ISM if such alias exists**
 
 ### Test the `SunBackup.ps1` script 
 
@@ -161,7 +161,7 @@ Either schedule the task manually, following the screenshots below, or download 
 
 This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#create-a-sunsystems-account-for-backup-operator).
 
-![Creating scheduled task - automated](docs/img/scheduleScript-automated02.png "Creating scheduled task - automated")
+![Creating scheduled task - automated](docs/img/scheduleScript-animation.gif "Creating scheduled task - automated")
 
 If creating the task **manually**, ensure the following 4 points:
 
