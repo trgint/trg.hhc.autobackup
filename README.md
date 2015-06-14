@@ -25,6 +25,7 @@ Kindly contact trghelp@trginternational.com for any additional clarifications re
     - [Test the `SunBackup.ps1` script](#test-the-sunbackupps1-script)
     - [Schedule the `SunBackup.ps1` script](#schedule-the-sunbackupps1-script)
 - [Script Feature Overview:](#script-feature-overview)
+- [Contributing](#contributing)
 - [ChangeLog](#changelog)
 - [PowerShell basics](#powershell-basics)
 
@@ -199,6 +200,12 @@ This PowerShell script has the following features:
 - Ability to **send a high priority email with detailed instructions** in case the SunSystems backup files are outdated. (**and only IF the files are outdated**, saving the e-mail inbox of everybody involved)
 - Ability to effectively name the archives being created with a full ISO date not relying on registry keys to parse file system dates (as the old MSDOS batch had to do)
 - Ability to prevent a full disk by removing any backups older than 4 weeks
+
+## Contributing
+
+- master is stable
+- create feature branch if you work on this repository
+- fork & submit pull request after rebase to master
 
 ## ChangeLog
 
