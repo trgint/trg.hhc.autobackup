@@ -218,7 +218,7 @@ April 2015    | Vincent De Smet  | added script to source control https://bitbuc
               |                  | added task scheduler, migrated to github https://github.com/trgint/trg.hhc.autobackup
 November 2014 | Vincent De Smet  | Fixed bug causing script not to remove older backups correctly
 August 2014   | Vincent De Smet  | This is the 2nd version of the PowerShell script adding the ability to identify backup file age, emails and removing the reliance on additional files
-August 2013   | Vincent De Smet  | This is the 1st version of the PowerShell script using the PowerShell advanced DateTime and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
+August 2013   | Vincent De Smet  | This is the 1st version of the PowerShell script using the PowerShell advanced DateTime formatting and filtering capabilities to easily name archive files and delete archives older than a 7 days. Created by Vincent De Smet
 
 ## PowerShell basics
 
