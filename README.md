@@ -118,7 +118,7 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 You can get the latest version of the script via https://github.com/trgint/trg.hhc.autobackup
 
-**Note* it is recommended to use `D:\BACKUP` as the path, the `TaskConfig.xml` expects powershell script to exist under this path!
+**Note** it is recommended to use `D:\BACKUP` as the path, the `TaskConfig.xml` expects powershell script to exist under this path!
 
 or with this one liner **powershell 3+** (Windows Server 2012):
 
