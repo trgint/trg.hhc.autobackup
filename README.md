@@ -118,6 +118,8 @@ Once the macro has been recorded, it is required to **edit** the macro, adding t
 
 You can get the latest version of the script via https://github.com/trgint/trg.hhc.autobackup
 
+**Note* it is recommended to use `D:\BACKUP` as the path, the `TaskConfig.xml` expects powershell script to exist under this path!
+
 or with this one liner **powershell 3+** (Windows Server 2012):
 
 ```powershell
@@ -136,7 +138,7 @@ or with this one liner for **powershell 2** (Windows Server 2008):
 
 Ensure the following 2 points:
 
-1. The config should point to the correct FileSystems paths, **communicate these paths to ISM** to ensure tape backups or network mirrored folders exist
+1. The config should point to the correct FileSystems paths, **communicate these paths to ISM** to ensure tape backups or network mirrored folders exist.
 
 2. Update the e-mail contacts to be notified in case SunSystems backup files are out of date.
 
@@ -159,6 +161,8 @@ Either schedule the task manually, following the screenshots below, or download 
 ```powershell
 .\ScheduleBackup.ps1
 ```
+
+**Note** This script expects backup folder to be `D:\BACKUP`
 
 This will download a Task configuration template and prompt for the Windows account `.\svcSunBaK` created [earlier](#create-a-sunsystems-account-for-backup-operator).
 
