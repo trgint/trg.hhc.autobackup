@@ -213,6 +213,8 @@ This PowerShell script has the following features:
 
 ## ChangeLog
 
+Here is full changelog.
+
 Date          | By               | Changes
 ------------- | ---------------- | ---------------------------------------------------------------
 May 2015      | Vincent De Smet  | added task scheduler, migrated to github https://github.com/trgint/trg.hhc.autobackup
