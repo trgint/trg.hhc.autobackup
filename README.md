@@ -40,7 +40,14 @@ Ensure 7zip is installed on the server, without 7z the script will fail.
 ![7z setup screen](docs/img/7zinstall.png "7z setup screen")
 
 ```powershell
-(New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://raw.githubusercontent.com/glombard/Scripts/master/PowerShell-Installers/Get-7zip.ps1"))).ReadToEnd() | Out-File Get-7zip.ps1
+$wc = New-Object System.Net.WebClient
+
+#download & run 7zip installer
+Write-Host -ForegroundColor Green "Downloading 7zip installer script... "
+$wc.DownloadFile("http://www.7-zip.org/a/7z920-x64.msi","$env:TEMP\7z.msi")
+
+Write-Host -ForegroundColor Green "Running 7zip installer script in background... "
+& "$env:TEMP\7z.msi" "/passive"
 ```
 
 http://www.7-zip.org/download.html
