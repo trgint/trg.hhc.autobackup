@@ -39,6 +39,10 @@ Ensure 7zip is installed on the server, without 7z the script will fail.
 
 ![7z setup screen](docs/img/7zinstall.png "7z setup screen")
 
+```powershell
+(New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://raw.githubusercontent.com/glombard/Scripts/master/PowerShell-Installers/Get-7zip.ps1"))).ReadToEnd() | Out-File Get-7zip.ps1
+```
+
 http://www.7-zip.org/download.html
 
 ### Add PowerShell-ISE to server (Optional)
@@ -129,7 +133,7 @@ or with this one liner **powershell 3+** (Windows Server 2012):
 or with this one liner for **powershell 2** (Windows Server 2008):
 
 ```powershell
-    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.IO.StreamReader((New-Object System.Net.WebClient).OpenRead("https://github.com/trgint/trg.hhc.autobackup/raw/master/{0}" -f $_ ))).ReadToEnd() | Out-File $_ }
+    @("SunBackup.ps1","config.xml","ScheduleBackup.ps1") | % { (New-Object System.Net.WebClient).DownloadFile("https://github.com/trgint/trg.hhc.autobackup/raw/master/{0}" -f $_, $_) }
 ```
 
 ### Edit the `config.xml`
